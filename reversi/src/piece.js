@@ -9,24 +9,14 @@ function Piece (color) {
  * Returns the color opposite the current piece.
  */
 Piece.prototype.oppColor = function () {
-    if (this.color === 'black'){
-        return 'white';
-    }
-    else {
-        return 'black';
-    };
+    return  (this.color === 'black') ? 'white' : 'black';
 };
 
 /**
  * Changes the piece's color to the opposite color.
  */
 Piece.prototype.flip = function () {
-    if (this.color === 'black'){
-        this.color= 'white';
-    }
-    else {
-        this.color = 'black';
-    };
+    (this.color === 'black') ? this.color= 'white' : this.color = 'black';
 };
 
 /**
@@ -34,12 +24,7 @@ Piece.prototype.flip = function () {
  * based on its color.
  */
 Piece.prototype.toString = function () {
-    if (this.color === 'white'){
-        return 'W';
-    }
-    else{
-        return 'B';
-    };
+    return (this.color === 'white') ? 'W' : 'B';
 };
 
 // DON'T TOUCH THIS CODE
