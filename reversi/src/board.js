@@ -121,12 +121,14 @@ Board.prototype._positionsToFlip = function(pos, color, dir, piecesToFlip){
  */
 Board.prototype.validMove = function (pos, color) {
   let dir = [];
-  for (let i of Board.DIRS){
-    let newPosition = [i[0] + pos[0], i[1] + pos[1]];
-    if (this.isValidPos(newPosition) && !this.isMine(newPosition) && this.isOccupied(newPosition)) dir.push(i);
+  for (let i = 0; i < Board.DIRS.length; i++){
+    let newPosition = [Board.DIRS[i][0] + pos[0], Board.DIRS[i][1] + pos[1]];
+    if (this.isValidPos(newPosition) && !this.isMine(newPosition) && this.isOccupied(newPosition)){
+      dir.push(Board.DIRS[i]);
+    }; 
   };
-  for (let j of dir){
-    let arr = this._positionsToFlip(pos, color, j, []);
+  for (let j = 0; j < dir.length; j++){
+    let arr = this._positionsToFlip(pos, color, dir[j], []);
     if (arr.length > 1) return true;
   };
   return false;
@@ -141,8 +143,7 @@ Board.prototype.validMove = function (pos, color) {
 Board.prototype.placePiece = function (pos, color) {
   if (!this.validMove(pos, color)){
     throw new Error('Invalid move!');
-  }
-  else{
+  } else{
     this.grid[pos[0]][pos[1]] = new Piece(color);
     for (let i of Board.DIRS){
       let arr = this._positionsToFlip(pos, color, i, []);
@@ -152,27 +153,27 @@ Board.prototype.placePiece = function (pos, color) {
           let y = j[1];
           let flipme = [x, y];
           if (!this.isMine(flipme, color)) this.grid[x][y].flip();
-        }
-      }
-    }
-  }
-  // if (!this.validMove(pos, color)){
-  //   throw new Error("Invalid move!");
-  // };
-  // this.grid[pos[0], pos[1]] = new Piece(color);
-  // return true;
+        };
+      };
+    };
+  };
 }; 
-// Hi I want to try your new computer :)
 
 /**
  * Produces an array of all valid positions on
  * the Board for a given color.
  */
-Board.prototype.validMoves = function (color) {
-  // let moves = [];
-  // for (let i = 0; i < Board.DIRS.length; i++) {
-    
-  // }
+Board.prototype.validMoves = function(color){
+//   let moves = [];
+//   for (let i = 0; i < 8; i++){
+//     for (let j = 0; j < 8; j++){
+//       let pos = [i, j];
+//       if (this.validMove(pos, color)){
+//         moves.push(pos);
+//       }
+//     }
+//   }
+//   return moves;
 };
 
 /**
@@ -197,6 +198,9 @@ Board.prototype.isOver = function () {
  * Prints a string representation of the Board to the console.
  */
 Board.prototype.print = function () {
+  for (let i of this.grid){
+    console.log(i);
+  };
 };
 
 
