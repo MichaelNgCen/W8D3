@@ -139,11 +139,30 @@ Board.prototype.validMove = function (pos, color) {
  * Throws an error if the position represents an invalid move.
  */
 Board.prototype.placePiece = function (pos, color) {
-  if (!this.validMove(pos)){
-    throw new Error("Invalid move!");
-  };
-
-};
+  if (!this.validMove(pos, color)){
+    throw new Error('Invalid move!');
+  }
+  else{
+    this.grid[pos[0]][pos[1]] = new Piece(color);
+    for (let i of Board.DIRS){
+      let arr = this._positionsToFlip(pos, color, i, []);
+      if (arr.length > 1){
+        for (let j of arr){
+          let x = j[0];
+          let y = j[1];
+          let flipme = [x, y];
+          if (!this.isMine(flipme, color)) this.grid[x][y].flip();
+        }
+      }
+    }
+  }
+  // if (!this.validMove(pos, color)){
+  //   throw new Error("Invalid move!");
+  // };
+  // this.grid[pos[0], pos[1]] = new Piece(color);
+  // return true;
+}; 
+// Hi I want to try your new computer :)
 
 /**
  * Produces an array of all valid positions on
